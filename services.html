@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cyber Services</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Courier New', monospace;
+        }
+
+        body {
+            line-height: 1.6;
+            color: #00ff00;
+            background: #000;
+            min-height: 100vh;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        /* Matrix Rain Effect */
+        .matrix-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+            opacity: 0.1;
+        }
+
+        /* Glitch Effect */
+        .glitch {
+            position: relative;
+            text-shadow: 0.05em 0 0 #00fffc, -0.03em -0.04em 0 #fc00ff,
+                         0.025em 0.04em 0 #fffc00;
+            animation: glitch 725ms infinite;
+        }
+
+        @keyframes glitch {
+            0% {
+                text-shadow: 0.05em 0 0 #00fffc, -0.03em -0.04em 0 #fc00ff,
+                            0.025em 0.04em 0 #fffc00;
+            }
+            15% {
+                text-shadow: 0.05em 0 0 #00fffc, -0.03em -0.04em 0 #fc00ff,
+                            0.025em 0.04em 0 #fffc00;
+            }
+            16% {
+                text-shadow: -0.05em -0.025em 0 #00fffc, 0.025em 0.035em 0 #fc00ff,
+                            -0.05em -0.05em 0 #fffc00;
+            }
+            49% {
+                text-shadow: -0.05em -0.025em 0 #00fffc, 0.025em 0.035em 0 #fc00ff,
+                            -0.05em -0.05em 0 #fffc00;
+            }
+            50% {
+                text-shadow: 0.05em 0.035em 0 #00fffc, 0.03em 0 0 #fc00ff,
+                            0 -0.04em 0 #fffc00;
+            }
+            99% {
+                text-shadow: 0.05em 0.035em 0 #00fffc, 0.03em 0 0 #fc00ff,
+                            0 -0.04em 0 #fffc00;
+            }
+            100% {
+                text-shadow: -0.05em 0 0 #00fffc, -0.025em -0.04em 0 #fc00ff,
+                            -0.04em -0.025em 0 #fffc00;
+            }
+        }
+
+        header {
+            background-color: rgba(0, 0, 0, 0.9);
+            padding: 1rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            border-bottom: 2px solid #00ff00;
+        }
+
+        nav {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            text-align: right;
+        }
+
+        nav a {
+            color: #00ff00;
+            text-decoration: none;
+            margin-left: 2rem;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        nav a:hover {
+            color: #fff;
+            text-shadow: 0 0 10px #00ff00, 0 0 20px #00ff00, 0 0 30px #00ff00;
+        }
+
+        nav a::before {
+            content: '[';
+            opacity: 0;
+            margin-right: 5px;
+            transition: all 0.3s ease;
+        }
+
+        nav a::after {
+            content: ']';
+            opacity: 0;
+            margin-left: 5px;
+            transition: all 0.3s ease;
+        }
+
+        nav a:hover::before,
+        nav a:hover::after {
+            opacity: 1;
+        }
+
+        main {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+            position: relative;
+            z-index: 2;
+        }
+
+        .hero-section {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+
+        .hero-section h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            text-transform: uppercase;
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin: 3rem 0;
+        }
+
+        .service-card {
+            background: rgba(0, 20, 0, 0.9);
+            border: 1px solid #00ff00;
+            padding: 2rem;
+            border-radius: 5px;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .service-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, transparent 49%, #00ff00 50%, transparent 51%);
+            opacity: 0;
+            transition: all 0.3s ease;
+        }
+
+        .service-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 0 20px rgba(0, 255, 0, 0.3);
+        }
+
+        .service-card:hover::before {
+            opacity: 0.1;
+        }
+
+        .service-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            text-align: center;
+            text-shadow: 0 0 10px #00ff00;
+        }
+
+        .service-title {
+            font-size: 1.8rem;
+            margin-bottom: 1rem;
+            text-align: center;
+            color: #00ff00;
+        }
+
+        .service-features {
+            list-style: none;
+        }
+
+        .service-features li {
+            margin-bottom: 0.5rem;
+            padding-left: 1.5rem;
+            position: relative;
+        }
+
+        .service-features li::before {
+            content: '>';
+            position: absolute;
+            left: 0;
+            color: #00ff00;
+        }
+
+        .price-badge {
+            display: inline-block;
+            background: #00ff00;
+            color: #000;
+            padding: 0.5rem 1.5rem;
+            margin-top: 1rem;
+            border-radius: 3px;
+            font-weight: bold;
+        }
+
+        footer {
+            background-color: rgba(0, 0, 0, 0.9);
+            color: #00ff00;
+            text-align: center;
+            padding: 1rem;
+            margin-top: 2rem;
+            border-top: 2px solid #00ff00;
+            position: relative;
+            z-index: 2;
+        }
+
+        /* Terminal typing effect */
+        .typing-effect {
+            border-right: 2px solid #00ff00;
+            white-space: nowrap;
+            overflow: hidden;
+            animation: typing 3.5s steps(40, end), blink-caret 0.75s step-end infinite;
+        }
+
+        @keyframes typing {
+            from { width: 0 }
+            to { width: 100% }
+        }
+
+        @keyframes blink-caret {
+            from, to { border-color: transparent }
+            50% { border-color: #00ff00 }
+        }
+
+        @media (max-width: 768px) {
+            nav {
+                text-align: center;
+            }
+
+            nav a {
+                margin: 0 1rem;
+            }
+
+            .services-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <canvas class="matrix-bg" id="matrix"></canvas>
+    <header>
+        <nav>
+            <a href="index.html">Home</a>
+            <a href="about.html">About</a>
+            <a href="services.html">Services</a>
+            <a href="portfolio.html">Portfolio</a>
+            <a href="blog.html">Blog</a>
+            <a href="contact.html">Contact</a>
+        </nav>
+    </header>
+
+    <main>
+        <section class="hero-section">
+            <h1 class="glitch">Cyber Security Services</h1>
+            <p class="typing-effect">Protecting your digital assets with cutting-edge solutions</p>
+        </section>
+
+        <div class="services-grid">
+            <div class="service-card">
+                <div class="service-icon">🔒</div>
+                <h2 class="service-title">Penetration Testing</h2>
+                <ul class="service-features">
+                    <li>Network Vulnerability Scanning</li>
+                    <li>Web Application Testing</li>
+                    <li>Social Engineering Tests</li>
+                    <li>Detailed Report & Remediation</li>
+                </ul>
+                <div class="price-badge">From $2,499</div>
+            </div>
+
+            <div class="service-card">
+                <div class="service-icon">🛡️</div>
+                <h2 class="service-title">Security Audit</h2>
+                <ul class="service-features">
+                    <li>Infrastructure Assessment</li>
+                    <li>Compliance Checking</li>
+                    <li>Security Policy Review</li>
+                    <li>Risk Assessment</li>
+                </ul>
+                <div class="price-badge">From $1,999</div>
+            </div>
+
+            <div class="service-card">
+                <div class="service-icon">⚡</div>
+                <h2 class="service-title">Incident Response</h2>
+                <ul class="service-features">
+                    <li>24/7 Emergency Response</li>
+                    <li>Malware Analysis</li>
+                    <li>Forensic Investigation</li>
+                    <li>Recovery Planning</li>
+                </ul>
+                <div class="price-badge">From $3,499</div>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <p>&copy; 2024 Cyber Security Solutions. All rights reserved.</p>
+    </footer>
+
+    <script>
+        // Matrix rain effect
+        const canvas = document.getElementById('matrix');
+        const ctx = canvas.getContext('2d');
+
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+
+        const letters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ123456789@#$%^&*()*&^%';
+        const fontSize = 14;
+        const columns = canvas.width / fontSize;
+
+        const drops = [];
+        for (let i = 0; i < columns; i++) {
+            drops[i] = 1;
+        }
+
+        function draw() {
+            ctx.fillStyle = 'rgba(0, 0, 0, 0.05)';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+            ctx.fillStyle = '#0F0';
+            ctx.font = fontSize + 'px monospace';
+
+            for (let i = 0; i < drops.length; i++) {
+                const text = letters[Math.floor(Math.random() * letters.length)];
+                ctx.fillText(text, i * fontSize, drops[i] * fontSize);
+
+                if (drops[i] * fontSize > canvas.height && Math.random() > 0.975) {
+                    drops[i] = 0;
+                }
+                drops[i]++;
+            }
+        }
+
+        setInterval(draw, 33);
+
+        window.addEventListener('resize', () => {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        });
+    </script>
+</body>
+</html> 

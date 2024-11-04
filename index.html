@@ -1,0 +1,1537 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PTJ Hacker Company</title>
+    <style>
+        /* General Reset */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Courier New', Courier, monospace;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #000;
+            color: #00ffff;
+            text-align: center;
+            overflow-x: hidden;
+            background-image: url('https://i.imgur.com/XqQXqQq.gif');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+        }
+
+        /* Glow Effect */
+        .glow {
+            text-shadow: 0 0 10px #00ffff, 0 0 20px #00ffff, 0 0 30px #00ffff;
+            animation: glowPulse 2s infinite;
+        }
+
+        @keyframes glowPulse {
+            0% { text-shadow: 0 0 10px #00ffff, 0 0 20px #00ffff, 0 0 30px #00ffff; }
+            50% { text-shadow: 0 0 15px #00ffff, 0 0 25px #00ffff, 0 0 35px #00ffff; }
+            100% { text-shadow: 0 0 10px #00ffff, 0 0 20px #00ffff, 0 0 30px #00ffff; }
+        }
+
+        /* Header */
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 20px;
+            border-bottom: 1px solid #00ffff;
+            background-color: rgba(0, 26, 51, 0.95);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            backdrop-filter: blur(5px);
+        }
+
+        header h1 {
+            color: #00ffff;
+            font-size: 1.8em;
+            letter-spacing: 3px;
+        }
+
+        header nav a {
+            color: #00ffff;
+            text-decoration: none;
+            margin: 0 15px;
+            font-size: 1.1em;
+            transition: all 0.3s;
+            position: relative;
+        }
+
+        header nav a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -5px;
+            left: 0;
+            background-color: #ff3300;
+            transition: width 0.3s;
+        }
+
+        header nav a:hover::after {
+            width: 100%;
+        }
+
+        header nav a:hover {
+            color: #ff3300;
+            transform: scale(1.1);
+        }
+
+        /* Main Container */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: rgba(0, 0, 0, 0.8);
+            border-radius: 15px;
+            box-shadow: 0 0 20px rgba(0, 255, 255, 0.2);
+            backdrop-filter: blur(10px);
+        }
+
+        h1 {
+            font-size: 2.5em;
+            color: #00ffff;
+            margin-bottom: 20px;
+        }
+
+        p {
+            color: #b3ffff;
+            margin: 10px 0 30px;
+            font-size: 1.1em;
+            line-height: 1.5em;
+        }
+
+        /* Stats Section */
+        .stats {
+            display: flex;
+            justify-content: space-around;
+            margin: 30px 0;
+            flex-wrap: wrap;
+            perspective: 1000px;
+        }
+
+        .stat-card {
+            background-color: rgba(0, 26, 51, 0.9);
+            border: 1px solid #00ffff;
+            border-radius: 8px;
+            padding: 20px;
+            width: 30%;
+            min-width: 250px;
+            transition: transform 0.5s, box-shadow 0.3s;
+            transform-style: preserve-3d;
+        }
+
+        .stat-card:hover {
+            transform: scale(1.05) rotateY(10deg);
+            box-shadow: 0 0 25px #00ffff;
+        }
+
+        .stat-card h2 {
+            color: #00ffff;
+            font-size: 1.5em;
+            margin-bottom: 10px;
+        }
+
+        /* Services Section */
+        .services {
+            display: flex;
+            justify-content: space-around;
+            margin: 20px 0;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .service-card {
+            background-color: rgba(0, 26, 51, 0.9);
+            border: 1px solid #00ffff;
+            border-radius: 8px;
+            padding: 20px;
+            width: 30%;
+            min-width: 250px;
+            color: #00ffff;
+            transition: all 0.5s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .service-card::before {
+            content: '';
+            position: absolute;
+            top: -100%;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(transparent, rgba(0, 255, 255, 0.1), transparent);
+            transition: 0.5s;
+        }
+
+        .service-card:hover::before {
+            top: 100%;
+        }
+
+        .service-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 0 30px #00ffff;
+        }
+
+        .service-card h3 {
+            color: #00ffff;
+            font-size: 1.3em;
+            margin-bottom: 10px;
+        }
+
+        /* Warning Section */
+        .warning {
+            background-color: #ff3300;
+            color: #fff;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 8px;
+            font-size: 1.2em;
+            font-weight: bold;
+            animation: warningBlink 1.5s infinite alternate;
+            position: relative;
+            overflow: hidden;
+        }
+
+        @keyframes warningBlink {
+            from { opacity: 1; background-color: #ff3300; }
+            to { opacity: 0.8; background-color: #cc2900; }
+        }
+
+        .warning::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            animation: warningShine 3s infinite;
+        }
+
+        @keyframes warningShine {
+            to {
+                left: 100%;
+            }
+        }
+
+        /* Icons Section */
+        .icon-section {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-top: 20px;
+            gap: 20px;
+        }
+
+        .icon-card {
+            background-color: rgba(0, 26, 51, 0.9);
+            border: 1px solid #00ffff;
+            border-radius: 8px;
+            padding: 20px;
+            width: 120px;
+            height: 120px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.5s;
+            position: relative;
+        }
+
+        .icon-card:hover {
+            transform: scale(1.1) rotate(5deg);
+            box-shadow: 0 0 25px #00ffff;
+        }
+
+        .icon-card img {
+            width: 80px;
+            height: auto;
+            transition: transform 0.5s;
+        }
+
+        .icon-card:hover img {
+            transform: rotate(-5deg);
+        }
+
+        /* Footer */
+        footer {
+            margin-top: 40px;
+            padding: 20px;
+            font-size: 0.9em;
+            color: #00ffff;
+            border-top: 1px solid #00ffff;
+            background-color: rgba(0, 26, 51, 0.95);
+            backdrop-filter: blur(5px);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .stat-card, .service-card {
+                width: 90%;
+                margin: 10px auto;
+            }
+
+            header {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            header nav {
+                margin-top: 10px;
+            }
+
+            h1 {
+                font-size: 2em;
+            }
+
+            .icon-card {
+                width: 80px;
+                height: 80px;
+            }
+        }
+
+        /* Button Styles */
+        .button {
+            background-color: #00ffff;
+            color: #000;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 25px;
+            font-size: 1.1em;
+            cursor: pointer;
+            transition: all 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+            transition: 0.5s;
+        }
+
+        .button:hover::before {
+            left: 100%;
+        }
+
+        .button:hover {
+            background-color: #ff3300;
+            color: #fff;
+            transform: scale(1.05);
+            box-shadow: 0 0 15px rgba(255, 51, 0, 0.5);
+        }
+
+        /* Modal Styles */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1001;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(5px);
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal-content {
+            background-color: rgba(0, 26, 51, 0.95);
+            margin: auto;
+            padding: 30px;
+            border: 2px solid #00ffff;
+            border-radius: 15px;
+            width: 80%;
+            max-width: 500px;
+            text-align: left;
+            position: relative;
+            transform: scale(0.7);
+            opacity: 0;
+            transition: all 0.3s;
+        }
+
+        .modal.active .modal-content {
+            transform: scale(1);
+            opacity: 1;
+        }
+
+        .close {
+            color: #ff3300;
+            float: right;
+            font-size: 1.8em;
+            font-weight: bold;
+            transition: all 0.3s;
+        }
+
+        .close:hover,
+        .close:focus {
+            color: #fff;
+            text-decoration: none;
+            cursor: pointer;
+            transform: rotate(90deg);
+        }
+
+        /* Loading Animation */
+        .loading {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: #000;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 2000;
+        }
+
+        .loading-spinner {
+            width: 50px;
+            height: 50px;
+            border: 5px solid #00ffff;
+            border-top: 5px solid transparent;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* Matrix Rain Effect */
+        #matrix-rain {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        /* Glitch Text Effect */
+        .glitch {
+            position: relative;
+        }
+
+        .glitch::before,
+        .glitch::after {
+            content: attr(data-text);
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+
+        .glitch::before {
+            left: 2px;
+            text-shadow: -2px 0 #ff0000;
+            animation: glitch-anim-1 2s infinite linear alternate-reverse;
+        }
+
+        .glitch::after {
+            left: -2px;
+            text-shadow: 2px 0 #00ff00;
+            animation: glitch-anim-2 3s infinite linear alternate-reverse;
+        }
+
+        @keyframes glitch-anim-1 {
+            0% { clip-path: inset(20% 0 30% 0); }
+            20% { clip-path: inset(60% 0 10% 0); }
+            40% { clip-path: inset(40% 0 50% 0); }
+            60% { clip-path: inset(80% 0 5% 0); }
+            80% { clip-path: inset(10% 0 70% 0); }
+            100% { clip-path: inset(30% 0 20% 0); }
+        }
+
+        @keyframes glitch-anim-2 {
+            0% { clip-path: inset(15% 0 40% 0); }
+            20% { clip-path: inset(50% 0 20% 0); }
+            40% { clip-path: inset(30% 0 60% 0); }
+            60% { clip-path: inset(70% 0 15% 0); }
+            80% { clip-path: inset(20% 0 50% 0); }
+            100% { clip-path: inset(45% 0 25% 0); }
+        }
+
+        /* Typing Effect */
+        .typing {
+            border-right: 2px solid #00ffff;
+            white-space: nowrap;
+            overflow: hidden;
+            animation: typing 3.5s steps(40, end), blink-caret 0.75s step-end infinite;
+        }
+
+        @keyframes typing {
+            from { width: 0 }
+            to { width: 100% }
+        }
+
+        @keyframes blink-caret {
+            from, to { border-color: transparent }
+            50% { border-color: #00ffff }
+        }
+
+        /* Terminal Window */
+        .terminal-window {
+            background: rgba(0, 0, 0, 0.9);
+            border: 1px solid #00ffff;
+            border-radius: 5px;
+            margin: 20px auto;
+            max-width: 600px;
+            overflow: hidden;
+        }
+
+        .terminal-header {
+            background: rgba(0, 26, 51, 0.9);
+            padding: 10px;
+            display: flex;
+            gap: 8px;
+        }
+
+        .terminal-button {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: #ff3300;
+        }
+
+        .terminal-button:nth-child(2) {
+            background: #ffcc00;
+        }
+
+        .terminal-button:nth-child(3) {
+            background: #00cc00;
+        }
+
+        .terminal-content {
+            padding: 15px;
+            font-family: 'Courier New', monospace;
+            color: #00ffff;
+            height: 200px;
+            overflow-y: auto;
+        }
+
+        /* Neon Button Effect */
+        .neon-button {
+            position: relative;
+            display: inline-block;
+            padding: 15px 30px;
+            color: #00ffff;
+            text-transform: uppercase;
+            letter-spacing: 4px;
+            text-decoration: none;
+            font-size: 24px;
+            overflow: hidden;
+            transition: 0.2s;
+            background: transparent;
+            border: 2px solid #00ffff;
+            margin: 20px;
+        }
+
+        .neon-button:hover {
+            color: #000;
+            background: #00ffff;
+            box-shadow: 0 0 10px #00ffff, 0 0 40px #00ffff, 0 0 80px #00ffff;
+            transition-delay: 0.1s;
+        }
+
+        /* Scanlines Effect */
+        .scanlines {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 9999;
+            background: linear-gradient(
+                to bottom,
+                rgba(255, 255, 255, 0) 50%,
+                rgba(0, 0, 0, 0.2) 50%
+            );
+            background-size: 100% 4px;
+            animation: scanlines 0.1s linear infinite;
+        }
+
+        @keyframes scanlines {
+            0% { background-position: 0 0; }
+            100% { background-position: 0 4px; }
+        }
+
+        /* Flicker Effect */
+        .flicker {
+            animation: flicker 0.1s infinite;
+        }
+
+        @keyframes flicker {
+            0% { opacity: 0.9; }
+            50% { opacity: 1; }
+            100% { opacity: 0.9; }
+        }
+
+        /* Terminal Effect */
+        .terminal {
+            background: rgba(0,0,0,0.9);
+            border: 1px solid var(--primary);
+            padding: 1rem;
+            font-family: monospace;
+            position: relative;
+            overflow: hidden;
+            margin: 1rem 0;
+        }
+
+        .terminal::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, #ff0000, #00ff00, #0000ff);
+        }
+
+        /* Glitch Effect */
+        .glitch {
+            position: relative;
+            animation: glitch 1s infinite;
+        }
+
+        @keyframes glitch {
+            2%, 64% { transform: translate(2px,0) skew(0deg); }
+            4%, 60% { transform: translate(-2px,0) skew(0deg); }
+            62% { transform: translate(0,0) skew(5deg); }
+        }
+
+        /* Matrix Background */
+        #matrix {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+        }
+
+        /* Neon Buttons */
+        .neon-btn {
+            background: transparent;
+            border: 1px solid var(--primary);
+            color: var(--primary);
+            padding: 0.5rem 1rem;
+            position: relative;
+            overflow: hidden;
+            transition: 0.3s;
+            cursor: pointer;
+        }
+
+        .neon-btn:hover {
+            background: var(--primary);
+            color: #000;
+            box-shadow: 0 0 10px var(--primary);
+        }
+
+        /* Progress Bar */
+        .progress-bar {
+            height: 2px;
+            background: var(--primary);
+            position: fixed;
+            top: 0;
+            left: 0;
+            transform-origin: 0 50%;
+            z-index: 1000;
+        }
+
+        /* Cursor Trail */
+        .cursor-trail {
+            pointer-events: none;
+            position: fixed;
+            width: 5px;
+            height: 5px;
+            background: var(--primary);
+            border-radius: 50%;
+            z-index: 9999;
+        }
+
+        .terminal {
+            background: rgba(0, 0, 0, 0.9);
+            border: 1px solid #00ffff;
+            margin: 20px auto;
+            max-width: 600px;
+            overflow: hidden;
+        }
+
+        .terminal-header {
+            background: rgba(0, 26, 51, 0.9);
+            padding: 10px;
+            display: flex;
+            gap: 8px;
+        }
+
+        .terminal-header span {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: #ff3300;
+        }
+
+        .terminal-header span:nth-child(2) { background: #ffcc00; }
+        .terminal-header span:nth-child(3) { background: #00cc00; }
+
+        .terminal-content {
+            padding: 15px;
+            font-family: 'Courier New', monospace;
+            color: #00ffff;
+            min-height: 100px;
+        }
+
+        /* First, add Font Awesome CDN in your head section */
+        @import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css');
+
+        /* Social Links Container */
+        .social-links {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            margin: 20px 0;
+        }
+
+        /* Social Link General Styles */
+        .social-link {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 10px 20px;
+            border-radius: 5px;
+            text-decoration: none;
+            color: #fff;
+            transition: all 0.3s ease;
+            border: 1px solid;
+        }
+
+        /* Facebook Specific Styles */
+        .social-link.facebook {
+            background-color: rgba(66, 103, 178, 0.1);
+            border-color: #4267B2;
+        }
+
+        .social-link.facebook:hover {
+            background-color: #4267B2;
+            box-shadow: 0 0 15px rgba(66, 103, 178, 0.5);
+        }
+
+        /* Instagram Specific Styles */
+        .social-link.instagram {
+            background-color: rgba(225, 48, 108, 0.1);
+            border-color: #E1306C;
+        }
+
+        .social-link.instagram:hover {
+            background-color: #E1306C;
+            box-shadow: 0 0 15px rgba(225, 48, 108, 0.5);
+        }
+
+        /* Icon Styles */
+        .social-link i {
+            font-size: 1.2em;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .social-link span {
+                display: none;
+            }
+
+            .social-link {
+                padding: 10px;
+            }
+
+            .social-link i {
+                font-size: 1.5em;
+            }
+        }
+
+        /* Optional: Floating Social Links */
+        .social-links.floating {
+            position: fixed;
+            right: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            flex-direction: column;
+        }
+
+        /* Photo Gallery Styles */
+        .photo-gallery {
+            padding: 2rem;
+            background: rgba(0, 0, 0, 0.8);
+            margin: 2rem 0;
+        }
+
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            padding: 20px;
+        }
+
+        .gallery-item {
+            position: relative;
+            overflow: hidden;
+            border: 2px solid #00ffff;
+            transition: transform 0.3s ease;
+            cursor: pointer;
+        }
+
+        .gallery-item:hover {
+            transform: scale(1.02);
+            box-shadow: 0 0 20px rgba(0, 255, 255, 0.5);
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: 300px;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+        }
+
+        .gallery-item:hover img {
+            transform: scale(1.1);
+        }
+
+        .image-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: rgba(0, 0, 0, 0.8);
+            padding: 1rem;
+            transform: translateY(100%);
+            transition: transform 0.3s ease;
+        }
+
+        .gallery-item:hover .image-overlay {
+            transform: translateY(0);
+        }
+
+        .image-title {
+            color: #00ffff;
+            font-family: 'Courier New', monospace;
+            font-size: 1.2rem;
+            text-transform: uppercase;
+        }
+
+        /* Modal for Image Preview */
+        #imagePreviewModal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.9);
+            z-index: 1000;
+            cursor: pointer;
+        }
+
+        #imagePreviewModal img {
+            max-width: 90%;
+            max-height: 90vh;
+            margin: auto;
+            display: block;
+            position: relative;
+            top: 50%;
+            transform: translateY(-50%);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .gallery-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Loading Animation */
+        .lazy-image {
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .lazy-image.loaded {
+            opacity: 1;
+        }
+
+        .social-links {
+            margin: 20px 0;
+        }
+
+        .social-icon {
+            color: #333;
+            font-size: 24px;
+            margin: 0 10px;
+            transition: color 0.3s ease;
+        }
+
+        .social-icon:hover {
+            color: #0066cc;
+        }
+
+        .social-media-section {
+            padding: 20px;
+            text-align: center;
+        }
+
+        .social-link {
+            display: inline-block;
+            padding: 10px 20px;
+            margin: 10px;
+            text-decoration: none;
+            border-radius: 5px;
+            color: white;
+            font-weight: bold;
+        }
+
+        .facebook {
+            background-color: #3b5998;
+        }
+
+        .instagram {
+            background: #f09433;
+            background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);
+        }
+
+        .social-link:hover {
+            opacity: 0.9;
+            transform: scale(1.05);
+            transition: all 0.3s ease;
+        }
+
+        .social-link i {
+            margin-right: 10px;
+        }
+
+        .social-settings {
+            margin-top: 20px;
+            padding: 15px;
+            border-top: 1px solid #eee;
+        }
+
+        .whatsapp {
+            background-color: #25D366;
+        }
+
+        .email {
+            background-color: #EA4335;
+        }
+
+        .phone {
+            background-color: #4CAF50;
+        }
+
+        /* Hover effects for all social links */
+        .social-link {
+            display: inline-block;
+            padding: 12px 24px;
+            margin: 8px;
+            text-decoration: none;
+            border-radius: 25px;
+            color: white;
+            font-weight: bold;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+        }
+
+        .social-link:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+
+        /* Responsive design */
+        @media (max-width: 768px) {
+            .social-link {
+                display: block;
+                margin: 10px auto;
+                width: 80%;
+            }
+        }
+
+        .social-lite {
+            padding: 15px;
+            text-align: center;
+        }
+
+        .social-btn {
+            display: inline-block;
+            margin: 0 10px;
+            padding: 8px;
+            color: #666;
+            font-size: 20px;
+            transition: transform 0.2s;
+        }
+
+        .social-btn:hover {
+            transform: scale(1.2);
+            color: #333;
+        }
+
+        .visitor-counter {
+            text-align: center;
+            padding: 10px;
+            margin: 10px 0;
+            font-size: 14px;
+            color: #666;
+        }
+
+        .visitor-counter i {
+            margin-right: 5px;
+            color: #888;
+        }
+    </style>
+    <!-- Optimize images -->
+    <link rel="preload" href="fire-icon.png" as="image">
+    <link rel="preload" href="snake-icon.png" as="image">
+    <link rel="preload" href="https://i.imgur.com/XqQXqQq.gif" as="image">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+</head>
+<body>
+    <!-- Loading Screen -->
+    <div class="loading" id="loadingScreen">
+        <div class="loading-spinner"></div>
+    </div>
+
+    <!-- Header -->
+    <header>
+        <h1 class="glow">PTJ</h1>
+        <nav>
+            <a href="index.html">Home</a>
+            <a href="about.html">About</a>
+            <a href="services.html">Services</a>
+            <a href="portfolio.html">Portfolio</a>
+            <a href="blog.html">Blog</a>
+            <a href="contact.html">Contact</a>
+        </nav>
+    </header>
+
+    <!-- Main Container -->
+    <main class="container">
+        <!-- Welcome Section -->
+        <section class="welcome">
+            <h1 class="glitch" data-text="Welcome to PTJ Hacker Company">Welcome to PTJ Hacker Company</h1>
+            <p class="typing">We are the underground kings of the digital realm...</p>
+            <button class="button" id="learnMoreBtn">Learn More</button>
+            <div class="terminal-window">
+                <div class="terminal-header">
+                    <span class="terminal-button"></span>
+                    <span class="terminal-button"></span>
+                    <span class="terminal-button"></span>
+                </div>
+                <div class="terminal-content" id="terminalContent"></div>
+            </div>
+        </section>
+
+        <!-- Stats Section -->
+        <section class="stats">
+            <div class="stat-card" aria-label="Facebook Followers">
+                <h2>1M+<br>Facebook Followers</h2>
+            </div>
+            <div class="stat-card" aria-label="YouTube Subscribers">
+                <h2>1M+<br>YouTube Subscribers</h2>
+            </div>
+            <div class="stat-card" aria-label="Underground Transactions">
+                <h2>$1B+<br>Underground Transactions</h2>
+            </div>
+        </section>
+
+        <!-- Services Section -->
+        <section class="services">
+            <div class="service-card">
+                <h3>Data Encryption</h3>
+                <p>We use advanced algorithms to encrypt your data, making it inaccessible to anyone but us.</p>
+            </div>
+            <div class="service-card">
+                <h3>PC Locker 3.0</h3>
+                <p>Our latest PC locking technology ensures complete control over your system.</p>
+            </div>
+            <div class="service-card">
+                <h3>Deepweb Operations</h3>
+                <p>We navigate the darkest corners of the internet, facilitating anonymous transactions and information exchange.</p>
+            </div>
+        </section>
+
+        <!-- Warning Section -->
+        <section class="warning">
+            <h2>WARNING: Your Data Has Been Compromised</h2>
+            <p>If you're seeing this message, it's already too late. Your data has been encrypted and is now under our control. Contact us immediately for further instructions.</p>
+        </section>
+
+        <!-- Icon Section -->
+        <section class="icon-section">
+            <div class="icon-card">
+                <img src="fire-icon.png" alt="Fire Icon">
+            </div>
+            <div class="icon-card">
+                <img src="snake-icon.png" alt="Snake Icon">
+            </div>
+            <div class="icon-card">
+                <img src="fire-icon.png" alt="Fire Icon">
+            </div>
+        </section>
+    </main>
+
+    <!-- Modal for Learn More -->
+    <div id="learnMoreModal" class="modal">
+        <div class="modal-content">
+            <span class="close" id="closeModal">&times;</span>
+            <h2>About PTJ Hacker Company</h2>
+            <p>At PTJ Hacker Company, we pride ourselves on being the leading experts in digital manipulation and security breaches. Our team of elite hackers is dedicated to ensuring the ultimate protection and exploitation of digital assets.</p>
+            <p>Our services include:</p>
+            <ul>
+                <li>State-of-the-art data encryption techniques.</li>
+                <li>Infiltration services for advanced corporate espionage.</li>
+                <li>Custom solutions tailored to meet your digital security needs.</li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        &copy; 2023 PTJ Hacker Company. All rights reserved. | Designed by SAYEM X ZBP
+    </footer>
+
+    <!-- Add canvas for Matrix rain effect right after body tag -->
+    <canvas id="matrix-rain"></canvas>
+
+    <canvas id="matrix"></canvas>
+    <div class="progress-bar"></div>
+
+    <div class="terminal" id="hackTerminal">
+        <div class="terminal-content"></div>
+    </div>
+
+    <button class="neon-btn" id="hackButton">Initialize Hack</button>
+
+    <!-- Add this section where you want the photos -->
+    <section class="photo-gallery">
+        <div class="gallery-grid">
+            <div class="gallery-item">
+                <img src="https://via.placeholder.com/400x300" alt="Hacker Setup" 
+                     data-src="your-actual-image1.jpg" class="lazy-image">
+                <div class="image-overlay">
+                    <span class="image-title">Hacker Setup</span>
+                </div>
+            </div>
+            <div class="gallery-item">
+                <img src="https://via.placeholder.com/400x300" alt="Security Systems" 
+                     data-src="your-actual-image2.jpg" class="lazy-image">
+                <div class="image-overlay">
+                    <span class="image-title">Security Systems</span>
+                </div>
+            </div>
+            <div class="gallery-item">
+                <img src="https://via.placeholder.com/400x300" alt="Network Operations" 
+                     data-src="your-actual-image3.jpg" class="lazy-image">
+                <div class="image-overlay">
+                    <span class="image-title">Network Ops</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="social-lite">
+        <a href="https://www.facebook.com/profile.php?id=sayemxzrp" class="social-btn">
+            <i class="fab fa-facebook-f"></i>
+        </a>
+        
+        <a href="https://www.instagram.com/sayemxzrp" class="social-btn">
+            <i class="fab fa-instagram"></i>
+        </a>
+
+        <a href="https://wa.me/sayemxzrp" class="social-btn">
+            <i class="fab fa-whatsapp"></i>
+        </a>
+    </div>
+
+    <div class="visitor-counter">
+        <i class="fas fa-eye"></i>
+        <span>Visitors: </span>
+        <span id="visitorCount">0</span>
+    </div>
+
+    <script>
+        // Loading screen
+        window.addEventListener('load', function() {
+            setTimeout(function() {
+                document.getElementById('loadingScreen').style.display = 'none';
+            }, 1500);
+        });
+
+        // Modal functionality
+        const learnMoreModal = document.getElementById('learnMoreModal');
+        const btn = document.getElementById('learnMoreBtn');
+        const span = document.getElementById('closeModal');
+
+        // Open the modal
+        btn.onclick = function() {
+            learnMoreModal.style.display = "flex";
+            setTimeout(() => {
+                learnMoreModal.classList.add('active');
+            }, 10);
+        }
+
+        // Close the modal
+        span.onclick = function() {
+            learnMoreModal.classList.remove('active');
+            setTimeout(() => {
+                learnMoreModal.style.display = "none";
+            }, 300);
+        }
+
+        // Close the modal when clicking outside of it
+        window.onclick = function(event) {
+            if (event.target === learnMoreModal) {
+                learnMoreModal.classList.remove('active');
+                setTimeout(() => {
+                    learnMoreModal.style.display = "none";
+                }, 300);
+            }
+        }
+
+        // Scroll animation for elements
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        });
+
+        document.querySelectorAll('.service-card, .stat-card, .icon-card').forEach((el) => {
+            el.style.opacity = '0';
+            el.style.transform = 'translateY(50px)';
+            el.style.transition = 'all 0.6s ease-out';
+            observer.observe(el);
+        });
+
+        // Matrix Rain Effect
+        const canvas = document.getElementById('matrix-rain');
+        const ctx = canvas.getContext('2d');
+
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+
+        const katakana = 'アァカサタナハマヤャラワガザダバパイィキシチニヒミリヰギジヂビピウゥクスツヌフムユュルグズブヅプエェケセテネヘメレヱゲゼデベペオォコソトノホモヨョロヲゴゾドボポヴッン';
+        const latin = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+        const nums = '0123456789';
+        const alphabet = katakana + latin + nums;
+
+        const fontSize = 16;
+        const columns = canvas.width/fontSize;
+
+        const rainDrops = Array(Math.floor(columns)).fill(1);
+
+        function draw() {
+            ctx.fillStyle = 'rgba(0, 0, 0, 0.05)';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+            ctx.fillStyle = '#0F0';
+            ctx.font = fontSize + 'px monospace';
+
+            for(let i = 0; i < rainDrops.length; i++) {
+                const text = alphabet.charAt(Math.floor(Math.random() * alphabet.length));
+                ctx.fillText(text, i*fontSize, rainDrops[i]*fontSize);
+                
+                if(rainDrops[i]*fontSize > canvas.height && Math.random() > 0.975) {
+                    rainDrops[i] = 0;
+                }
+                rainDrops[i]++;
+            }
+        }
+
+        setInterval(draw, 30);
+
+        // Handle window resize
+        window.addEventListener('resize', () => {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        });
+
+        // Terminal Effect
+        const terminalContent = document.getElementById('terminalContent');
+        const messages = [
+            'Initializing system...',
+            'Accessing mainframe...',
+            'Bypassing security protocols...',
+            'Downloading classified data...',
+            'Access granted. Welcome to PTJ Hacker Company.'
+        ];
+
+        async function typeMessage(message) {
+            for (let char of message) {
+                terminalContent.innerHTML += char;
+                await new Promise(resolve => setTimeout(resolve, 50 + Math.random() * 50));
+            }
+            terminalContent.innerHTML += '<br><br>';
+        }
+
+        async function runTerminal() {
+            for (let message of messages) {
+                await typeMessage(message);
+                await new Promise(resolve => setTimeout(resolve, 500));
+            }
+        }
+
+        // Start terminal animation when page loads
+        window.addEventListener('load', () => {
+            runTerminal();
+        });
+
+        // Add visual glitch effects randomly
+        function addRandomGlitch() {
+            const elements = document.querySelectorAll('.container *');
+            const randomElement = elements[Math.floor(Math.random() * elements.length)];
+            
+            randomElement.classList.add('flicker');
+            setTimeout(() => {
+                randomElement.classList.remove('flicker');
+            }, 200);
+        }
+
+        setInterval(addRandomGlitch, 3000);
+
+        // Add audio effects
+        const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+
+        function playHackingSound() {
+            const oscillator = audioContext.createOscillator();
+            const gainNode = audioContext.createGain();
+            
+            oscillator.connect(gainNode);
+            gainNode.connect(audioContext.destination);
+            
+            oscillator.type = 'square';
+            oscillator.frequency.setValueAtTime(Math.random() * 1000 + 500, audioContext.currentTime);
+            gainNode.gain.setValueAtTime(0.1, audioContext.currentTime);
+            
+            oscillator.start();
+            oscillator.stop(audioContext.currentTime + 0.1);
+        }
+
+        // Play hacking sounds randomly
+        setInterval(() => {
+            if (Math.random() > 0.7) {
+                playHackingSound();
+            }
+        }, 1000);
+
+        // Add mouse trail effect
+        const mouseTrail = document.createElement('div');
+        mouseTrail.className = 'mouse-trail';
+        document.body.appendChild(mouseTrail);
+
+        document.addEventListener('mousemove', (e) => {
+            mouseTrail.style.left = e.pageX + 'px';
+            mouseTrail.style.top = e.pageY + 'px';
+            
+            const trail = document.createElement('div');
+            trail.className = 'trail-particle';
+            trail.style.left = e.pageX + 'px';
+            trail.style.top = e.pageY + 'px';
+            document.body.appendChild(trail);
+            
+            setTimeout(() => {
+                document.body.removeChild(trail);
+            }, 1000);
+        });
+
+        // Optimized Matrix Rain Effect
+        const matrix = (() => {
+            const canvas = document.getElementById('matrix');
+            const ctx = canvas.getContext('2d');
+            let chars = '01';
+            let drops = [];
+            let fontSize = 10;
+
+            function init() {
+                canvas.width = window.innerWidth;
+                canvas.height = window.innerHeight;
+                const columns = canvas.width / fontSize;
+                drops = Array(Math.floor(columns)).fill(1);
+            }
+
+            function draw() {
+                ctx.fillStyle = 'rgba(0,0,0,0.05)';
+                ctx.fillRect(0, 0, canvas.width, canvas.height);
+                ctx.fillStyle = '#0F0';
+                ctx.font = fontSize + 'px monospace';
+
+                for (let i = 0; i < drops.length; i++) {
+                    ctx.fillText(
+                        chars[Math.floor(Math.random() * chars.length)],
+                        i * fontSize,
+                        drops[i] * fontSize
+                    );
+                    if (drops[i] * fontSize > canvas.height && Math.random() > 0.975) {
+                        drops[i] = 0;
+                    }
+                    drops[i]++;
+                }
+                requestAnimationFrame(draw);
+            }
+
+            init();
+            window.addEventListener('resize', init);
+            return { start: draw };
+        })();
+
+        // Terminal Effect
+        const terminal = (() => {
+            const el = document.getElementById('hackTerminal');
+            const content = el.querySelector('.terminal-content');
+            const messages = [
+                'Initializing hack sequence...',
+                'Bypassing security...',
+                'Accessing mainframe...',
+                'Downloading data...',
+                'Hack complete!'
+            ];
+
+            async function type(text) {
+                for (let char of text) {
+                    content.textContent += char;
+                    await new Promise(r => setTimeout(r, 50 + Math.random() * 50));
+                }
+                content.textContent += '\n';
+            }
+
+            async function runSequence() {
+                content.textContent = '';
+                for (let msg of messages) {
+                    await type(msg);
+                    await new Promise(r => setTimeout(r, 500));
+                }
+            }
+
+            return { run: runSequence };
+        })();
+
+        // Cursor Trail Effect
+        const cursorTrail = (() => {
+            const trails = [];
+            const trailCount = 5;
+
+            for (let i = 0; i < trailCount; i++) {
+                const trail = document.createElement('div');
+                trail.className = 'cursor-trail';
+                document.body.appendChild(trail);
+                trails.push(trail);
+            }
+
+            document.addEventListener('mousemove', (e) => {
+                const { clientX, clientY } = e;
+                trails.forEach((trail, index) => {
+                    setTimeout(() => {
+                        trail.style.left = clientX + 'px';
+                        trail.style.top = clientY + 'px';
+                    }, index * 50);
+                });
+            });
+        })();
+
+        // Progress Bar
+        const progressBar = (() => {
+            const bar = document.querySelector('.progress-bar');
+            
+            function updateProgress() {
+                const scrolled = window.scrollY;
+                const maxScroll = document.documentElement.scrollHeight - window.innerHeight;
+                const progress = (scrolled / maxScroll) * 100;
+                bar.style.transform = `scaleX(${progress}%)`;
+            }
+
+            window.addEventListener('scroll', updateProgress);
+            return { update: updateProgress };
+        })();
+
+        // Initialize everything
+        document.addEventListener('DOMContentLoaded', () => {
+            matrix.start();
+            progressBar.update();
+            
+            document.getElementById('hackButton').addEventListener('click', () => {
+                terminal.run();
+            });
+        });
+
+        // Lazy Loading Images
+        document.addEventListener('DOMContentLoaded', function() {
+            const lazyImages = document.querySelectorAll('.lazy-image');
+            
+            const imageObserver = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const img = entry.target;
+                        img.src = img.dataset.src;
+                        img.classList.add('loaded');
+                        observer.unobserve(img);
+                    }
+                });
+            });
+
+            lazyImages.forEach(img => imageObserver.observe(img));
+        });
+
+        // Modal Image Preview
+        const imagePreviewModal = document.createElement('div');
+        imagePreviewModal.className = 'modal';
+        imagePreviewModal.innerHTML = '<img class="modal-content">';
+        document.body.appendChild(imagePreviewModal);
+
+        document.querySelectorAll('.gallery-item').forEach(item => {
+            item.addEventListener('click', function() {
+                const img = this.querySelector('img');
+                const modalImg = imagePreviewModal.querySelector('.modal-content');
+                imagePreviewModal.style.display = 'block';
+                modalImg.src = img.src;
+            });
+        });
+
+        imagePreviewModal.addEventListener('click', function() {
+            this.style.display = 'none';
+        });
+
+        document.addEventListener('DOMContentLoaded', function() {
+            // Get counter from localStorage or start at 0
+            let count = localStorage.getItem('visitorCount') || 0;
+            count = parseInt(count) + 1;
+            
+            // Update localStorage
+            localStorage.setItem('visitorCount', count);
+            
+            // Display the count
+            document.getElementById('visitorCount').textContent = count;
+        });
+    </script>
+
+    <!-- Add scanlines overlay -->
+    <div class="scanlines"></div>
+</body>
+</html>

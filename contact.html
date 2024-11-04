@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Us | Cyber Security</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Courier New', monospace;
+        }
+
+        body {
+            line-height: 1.6;
+            color: #00ff00;
+            background-color: #000;
+            min-height: 100vh;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        /* Matrix Rain Effect */
+        .matrix-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            opacity: 0.1;
+        }
+
+        /* Glitch Effect */
+        .glitch {
+            position: relative;
+            text-shadow: 0.05em 0 0 #00fffc, -0.03em -0.04em 0 #fc00ff,
+                         0.025em 0.04em 0 #fffc00;
+            animation: glitch 725ms infinite;
+        }
+
+        @keyframes glitch {
+            0% {
+                text-shadow: 0.05em 0 0 #00fffc, -0.03em -0.04em 0 #fc00ff,
+                            0.025em 0.04em 0 #fffc00;
+            }
+            15% {
+                text-shadow: 0.05em 0 0 #00fffc, -0.03em -0.04em 0 #fc00ff,
+                            0.025em 0.04em 0 #fffc00;
+            }
+            16% {
+                text-shadow: -0.05em -0.025em 0 #00fffc, 0.025em 0.035em 0 #fc00ff,
+                            -0.05em -0.05em 0 #fffc00;
+            }
+            49% {
+                text-shadow: -0.05em -0.025em 0 #00fffc, 0.025em 0.035em 0 #fc00ff,
+                            -0.05em -0.05em 0 #fffc00;
+            }
+            50% {
+                text-shadow: 0.05em 0.035em 0 #00fffc, 0.03em 0 0 #fc00ff,
+                            0 -0.04em 0 #fffc00;
+            }
+            99% {
+                text-shadow: 0.05em 0.035em 0 #00fffc, 0.03em 0 0 #fc00ff,
+                            0 -0.04em 0 #fffc00;
+            }
+            100% {
+                text-shadow: -0.05em 0 0 #00fffc, -0.025em -0.04em 0 #fc00ff,
+                            -0.04em -0.025em 0 #fffc00;
+            }
+        }
+
+        header {
+            background-color: rgba(0, 0, 0, 0.9);
+            padding: 1rem 0;
+            border-bottom: 2px solid #00ff00;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        nav {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            text-align: right;
+        }
+
+        nav a {
+            color: #00ff00;
+            text-decoration: none;
+            margin-left: 2rem;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+        }
+
+        nav a:hover {
+            color: #fff;
+            text-shadow: 0 0 10px #00ff00, 0 0 20px #00ff00, 0 0 30px #00ff00;
+        }
+
+        main {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+            position: relative;
+        }
+
+        .contact-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .contact-form {
+            background: rgba(0, 20, 0, 0.9);
+            padding: 2rem;
+            border: 1px solid #00ff00;
+            border-radius: 5px;
+            box-shadow: 0 0 20px rgba(0, 255, 0, 0.2);
+            animation: formPulse 2s infinite;
+        }
+
+        @keyframes formPulse {
+            0% { box-shadow: 0 0 20px rgba(0, 255, 0, 0.2); }
+            50% { box-shadow: 0 0 30px rgba(0, 255, 0, 0.4); }
+            100% { box-shadow: 0 0 20px rgba(0, 255, 0, 0.2); }
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: #00ff00;
+            font-weight: bold;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 0.8rem;
+            background: #000;
+            border: 1px solid #00ff00;
+            color: #00ff00;
+            font-family: 'Courier New', monospace;
+            resize: none;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            box-shadow: 0 0 10px rgba(0, 255, 0, 0.5);
+        }
+
+        .submit-btn {
+            background: #000;
+            color: #00ff00;
+            padding: 1rem 2rem;
+            border: 1px solid #00ff00;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .submit-btn:hover {
+            background: #00ff00;
+            color: #000;
+            box-shadow: 0 0 20px rgba(0, 255, 0, 0.5);
+        }
+
+        .contact-info {
+            background: rgba(0, 20, 0, 0.9);
+            padding: 2rem;
+            border: 1px solid #00ff00;
+            border-radius: 5px;
+        }
+
+        .contact-item {
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .contact-item i {
+            color: #00ff00;
+            font-size: 1.2rem;
+        }
+
+        /* Terminal Effect */
+        .terminal-text {
+            border-right: 2px solid #00ff00;
+            white-space: nowrap;
+            overflow: hidden;
+            animation: typing 3.5s steps(40, end), blink-caret 0.75s step-end infinite;
+        }
+
+        @keyframes typing {
+            from { width: 0 }
+            to { width: 100% }
+        }
+
+        @keyframes blink-caret {
+            from, to { border-color: transparent }
+            50% { border-color: #00ff00 }
+        }
+
+        footer {
+            background-color: rgba(0, 0, 0, 0.9);
+            color: #00ff00;
+            text-align: center;
+            padding: 1rem;
+            border-top: 2px solid #00ff00;
+            margin-top: 2rem;
+        }
+
+        /* Scan line effect */
+        .scan-line {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100px;
+            background: linear-gradient(
+                to bottom,
+                transparent 0%,
+                rgba(0, 255, 0, 0.05) 50%,
+                transparent 100%
+            );
+            animation: scanning 8s linear infinite;
+            pointer-events: none;
+        }
+
+        @keyframes scanning {
+            0% { transform: translateY(-100%) }
+            100% { transform: translateY(100vh) }
+        }
+
+        @media (max-width: 768px) {
+            .contact-container {
+                grid-template-columns: 1fr;
+            }
+
+            nav {
+                text-align: center;
+            }
+
+            nav a {
+                margin: 0 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="scan-line"></div>
+    <canvas class="matrix-bg" id="matrix"></canvas>
+
+    <header>
+        <nav>
+            <a href="index.html">Home</a>
+            <a href="about.html">About</a>
+            <a href="services.html">Services</a>
+            <a href="portfolio.html">Portfolio</a>
+            <a href="blog.html">Blog</a>
+            <a href="contact.html">Contact</a>
+        </nav>
+    </header>
+
+    <main>
+        <h1 class="glitch terminal-text">Secure Communication Channel</h1>
+        
+        <div class="contact-container">
+            <div class="contact-form">
+                <h2 class="terminal-text">Initialize Connection</h2>
+                <form id="contactForm">
+                    <div class="form-group">
+                        <label for="name">IDENTITY:</label>
+                        <input type="text" id="name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">SECURE EMAIL:</label>
+                        <input type="email" id="email" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="message">ENCRYPTED MESSAGE:</label>
+                        <textarea id="message" rows="6" required></textarea>
+                    </div>
+                    <button type="submit" class="submit-btn">Transmit Message</button>
+                </form>
+            </div>
+
+            <div class="contact-info">
+                <h2 class="terminal-text">Secure Channels</h2>
+                <div class="contact-item">
+                    <i>📍</i>
+                    <p>LOCATION: [ENCRYPTED]</p>
+                </div>
+                <div class="contact-item">
+                    <i>📞</i>
+                    <p>SECURE LINE: +1 [REDACTED]</p>
+                </div>
+                <div class="contact-item">
+                    <i>📧</i>
+                    <p>ENCRYPTED EMAIL: secure@domain.com</p>
+                </div>
+                <div class="contact-item">
+                    <i>⏰</i>
+                    <p>OPERATIONAL HOURS: 24/7/365</p>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <p>[SYSTEM]: Connection Secured © 2024</p>
+    </footer>
+
+    <script>
+        // Matrix rain effect
+        const canvas = document.getElementById('matrix');
+        const ctx = canvas.getContext('2d');
+
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+
+        const letters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ123456789@#$%^&*()*&^%';
+        const fontSize = 14;
+        const columns = canvas.width / fontSize;
+        const drops = [];
+
+        for(let i = 0; i < columns; i++) {
+            drops[i] = 1;
+        }
+
+        function draw() {
+            ctx.fillStyle = 'rgba(0, 0, 0, 0.05)';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+            ctx.fillStyle = '#0F0';
+            ctx.font = fontSize + 'px monospace';
+
+            for(let i = 0; i < drops.length; i++) {
+                const text = letters[Math.floor(Math.random() * letters.length)];
+                ctx.fillText(text, i * fontSize, drops[i] * fontSize);
+
+                if(drops[i] * fontSize > canvas.height && Math.random() > 0.975) {
+                    drops[i] = 0;
+                }
+                drops[i]++;
+            }
+        }
+
+        setInterval(draw, 33);
+
+        // Resize handler
+        window.addEventListener('resize', () => {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        });
+    </script>
+</body>
+</html> 

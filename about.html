@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Us - Cyber Security</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Courier New', monospace;
+        }
+
+        body {
+            line-height: 1.6;
+            color: #00ff00;
+            background-color: #000;
+            min-height: 100vh;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        /* Matrix Rain Effect */
+        .matrix-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            opacity: 0.1;
+        }
+
+        /* Glitch Effect */
+        .glitch {
+            position: relative;
+            text-shadow: 0.05em 0 0 #00fffc, -0.03em -0.04em 0 #fc00ff,
+                         0.025em 0.04em 0 #fffc00;
+            animation: glitch 725ms infinite;
+        }
+
+        @keyframes glitch {
+            0% {
+                text-shadow: 0.05em 0 0 #00fffc, -0.03em -0.04em 0 #fc00ff,
+                            0.025em 0.04em 0 #fffc00;
+            }
+            15% {
+                text-shadow: 0.05em 0 0 #00fffc, -0.03em -0.04em 0 #fc00ff,
+                            0.025em 0.04em 0 #fffc00;
+            }
+            16% {
+                text-shadow: -0.05em -0.025em 0 #00fffc, 0.025em 0.035em 0 #fc00ff,
+                            -0.05em -0.05em 0 #fffc00;
+            }
+            49% {
+                text-shadow: -0.05em -0.025em 0 #00fffc, 0.025em 0.035em 0 #fc00ff,
+                            -0.05em -0.05em 0 #fffc00;
+            }
+            50% {
+                text-shadow: 0.05em 0.035em 0 #00fffc, 0.03em 0 0 #fc00ff,
+                            0 -0.04em 0 #fffc00;
+            }
+            99% {
+                text-shadow: 0.05em 0.035em 0 #00fffc, 0.03em 0 0 #fc00ff,
+                            0 -0.04em 0 #fffc00;
+            }
+            100% {
+                text-shadow: -0.05em 0 0 #00fffc, -0.025em -0.04em 0 #fc00ff,
+                            -0.04em -0.025em 0 #fffc00;
+            }
+        }
+
+        header {
+            background-color: rgba(0, 0, 0, 0.9);
+            padding: 1rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            border-bottom: 2px solid #00ff00;
+        }
+
+        nav {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            text-align: right;
+        }
+
+        nav a {
+            color: #00ff00;
+            text-decoration: none;
+            margin-left: 2rem;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        nav a:hover {
+            color: #fff;
+            text-shadow: 0 0 10px #00ff00;
+        }
+
+        nav a::before {
+            content: '[';
+            opacity: 0;
+            margin-right: 5px;
+            transition: all 0.3s ease;
+        }
+
+        nav a::after {
+            content: ']';
+            opacity: 0;
+            margin-left: 5px;
+            transition: all 0.3s ease;
+        }
+
+        nav a:hover::before,
+        nav a:hover::after {
+            opacity: 1;
+        }
+
+        main {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+            position: relative;
+        }
+
+        .about-section {
+            margin-top: 2rem;
+        }
+
+        .about-section h1 {
+            font-size: 3rem;
+            margin-bottom: 2rem;
+            text-align: center;
+            text-transform: uppercase;
+        }
+
+        .terminal-window {
+            background: rgba(0, 20, 0, 0.9);
+            padding: 2rem;
+            border-radius: 8px;
+            border: 1px solid #00ff00;
+            margin-bottom: 2rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .terminal-window::before {
+            content: '> Loading...';
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            color: #00ff00;
+            animation: typing 1s steps(10) infinite;
+        }
+
+        @keyframes typing {
+            from { width: 0 }
+            to { width: 100% }
+        }
+
+        .content-section {
+            padding: 2rem;
+            opacity: 0;
+            animation: fadeIn 1s ease-out forwards;
+            animation-delay: 1s;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .team-member {
+            background: rgba(0, 20, 0, 0.9);
+            padding: 1.5rem;
+            border: 1px solid #00ff00;
+            border-radius: 8px;
+            margin-bottom: 1rem;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .team-member:hover {
+            transform: translateX(10px);
+            box-shadow: 0 0 20px rgba(0, 255, 0, 0.2);
+        }
+
+        .skill-bar {
+            height: 20px;
+            background: rgba(0, 255, 0, 0.1);
+            border: 1px solid #00ff00;
+            margin: 10px 0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .skill-progress {
+            position: absolute;
+            height: 100%;
+            background: #00ff00;
+            animation: loadSkill 2s ease-out forwards;
+        }
+
+        @keyframes loadSkill {
+            from { width: 0; }
+            to { width: var(--skill-level); }
+        }
+
+        footer {
+            background-color: rgba(0, 0, 0, 0.9);
+            color: #00ff00;
+            text-align: center;
+            padding: 1rem;
+            border-top: 2px solid #00ff00;
+        }
+
+        /* Scanline effect */
+        .scanline {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: rgba(0, 255, 0, 0.1);
+            opacity: 0.75;
+            animation: scanline 6s linear infinite;
+        }
+
+        @keyframes scanline {
+            0% { transform: translateY(0); }
+            100% { transform: translateY(100vh); }
+        }
+    </style>
+</head>
+<body>
+    <div class="matrix-bg" id="matrix"></div>
+    <div class="scanline"></div>
+
+    <header>
+        <nav>
+            <a href="index.html">Home</a>
+            <a href="about.html">About</a>
+            <a href="services.html">Services</a>
+            <a href="portfolio.html">Portfolio</a>
+            <a href="contact.html">Contact</a>
+        </nav>
+    </header>
+
+    <main>
+        <section class="about-section">
+            <h1 class="glitch">About Our Team</h1>
+            
+            <div class="terminal-window">
+                <div class="content-section">
+                    <h2>> Mission Statement_</h2>
+                    <p>We are a team of elite cybersecurity professionals dedicated to protecting digital assets and ensuring the highest level of security for our clients.</p>
+                    
+                    <h2>> Core Expertise_</h2>
+                    <div class="skill-bar">
+                        <div class="skill-progress" style="--skill-level: 95%"></div>
+                        <span>Penetration Testing</span>
+                    </div>
+                    <div class="skill-bar">
+                        <div class="skill-progress" style="--skill-level: 90%"></div>
+                        <span>Network Security</span>
+                    </div>
+                    <div class="skill-bar">
+                        <div class="skill-progress" style="--skill-level: 88%"></div>
+                        <span>Incident Response</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="terminal-window">
+                <div class="content-section">
+                    <h2>> Our Team_</h2>
+                    <div class="team-member">
+                        <h3>John Doe</h3>
+                        <p>Chief Security Officer</p>
+                        <p>Specialization: Advanced Threat Detection</p>
+                    </div>
+                    <div class="team-member">
+                        <h3>Jane Smith</h3>
+                        <p>Lead Penetration Tester</p>
+                        <p>Specialization: Web Application Security</p>
+                    </div>
+                    <div class="team-member">
+                        <h3>Mike Johnson</h3>
+                        <p>Security Analyst</p>
+                        <p>Specialization: Malware Analysis</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2024 CyberSec Team. All rights reserved.</p>
+    </footer>
+
+    <script>
+        // Matrix rain effect
+        const canvas = document.createElement('canvas');
+        canvas.classList.add('matrix-bg');
+        document.body.appendChild(canvas);
+        const ctx = canvas.getContext('2d');
+
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+
+        const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789@#$%^&*";
+        const fontSize = 14;
+        const columns = canvas.width / fontSize;
+        const drops = Array(Math.floor(columns)).fill(1);
+
+        function draw() {
+            ctx.fillStyle = 'rgba(0, 0, 0, 0.05)';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+            
+            ctx.fillStyle = '#0F0';
+            ctx.font = fontSize + 'px monospace';
+
+            for (let i = 0; i < drops.length; i++) {
+                const text = chars[Math.floor(Math.random() * chars.length)];
+                ctx.fillText(text, i * fontSize, drops[i] * fontSize);
+                
+                if (drops[i] * fontSize > canvas.height && Math.random() > 0.975) {
+                    drops[i] = 0;
+                }
+                drops[i]++;
+            }
+        }
+
+        setInterval(draw, 33);
+    </script>
+</body>
+</html>
