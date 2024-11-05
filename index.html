@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PTJ Hacker Company</title>
+    <title>SAYEM X ZRP</title>
     <style>
         /* General Reset */
         * {
@@ -1004,6 +1004,116 @@
             margin-right: 5px;
             color: #888;
         }
+
+        /* Voice Button Styles */
+        #voiceButton {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 1000;
+            background: rgba(0, 0, 0, 0.8);
+            border: 1px solid #00ffff;
+            color: #00ffff;
+            padding: 10px 20px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        #voiceButton:hover {
+            background: #00ffff;
+            color: #000;
+            box-shadow: 0 0 15px #00ffff;
+        }
+
+        #voiceButton.speaking {
+            animation: pulse 1s infinite;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); }
+        }
+
+        .voice-active {
+            border: 2px solid #ff0000 !important;
+        }
+
+        /* New Glitch Text Effect */
+        .glitch-text {
+            font-size: 4em;
+            font-weight: bold;
+            text-transform: uppercase;
+            position: relative;
+            text-shadow: 0.05em 0 0 #00fffc, -0.03em -0.04em 0 #fc00ff,
+                         0.025em 0.04em 0 #fffc00;
+            animation: glitch 725ms infinite;
+        }
+
+        .binary-stream {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+            opacity: 0.3;
+        }
+
+        /* Hacker Command Line */
+        .hacker-terminal {
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            width: 300px;
+            background: rgba(0, 20, 0, 0.9);
+            border: 1px solid #00ff00;
+            padding: 10px;
+            font-family: 'Courier New', monospace;
+            color: #00ff00;
+            z-index: 1000;
+            display: none;
+        }
+
+        .command-input {
+            width: 100%;
+            background: transparent;
+            border: none;
+            color: #00ff00;
+            font-family: 'Courier New', monospace;
+            outline: none;
+        }
+
+        /* Floating Icons */
+        .floating-icons {
+            position: fixed;
+            right: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            z-index: 1000;
+        }
+
+        .hack-icon {
+            width: 40px;
+            height: 40px;
+            background: rgba(0, 20, 0, 0.9);
+            border: 1px solid #00ff00;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .hack-icon:hover {
+            transform: scale(1.1);
+            box-shadow: 0 0 15px #00ff00;
+        }
     </style>
     <!-- Optimize images -->
     <link rel="preload" href="fire-icon.png" as="image">
@@ -1019,16 +1129,22 @@
 
     <!-- Header -->
     <header>
-        <h1 class="glow">PTJ</h1>
+        <h1 class="glow">SAYEM X ZRP</h1>
         <nav>
             <a href="index.html">Home</a>
             <a href="about.html">About</a>
+            <a href="blog.html">Blog</a>
             <a href="services.html">Services</a>
             <a href="portfolio.html">Portfolio</a>
-            <a href="blog.html">Blog</a>
             <a href="contact.html">Contact</a>
         </nav>
     </header>
+
+    <!-- Add this right after your existing header -->
+    <div class="hacker-overlay">
+        <div class="glitch-text" data-text="SYSTEM ZRP">SYSTEM ZRP</div>
+        <div class="binary-stream"></div>
+    </div>
 
     <!-- Main Container -->
     <main class="container">
@@ -1111,11 +1227,6 @@
         </div>
     </div>
 
-    <!-- Footer -->
-    <footer>
-        &copy; 2023 PTJ Hacker Company. All rights reserved. | Designed by SAYEM X ZBP
-    </footer>
-
     <!-- Add canvas for Matrix rain effect right after body tag -->
     <canvas id="matrix-rain"></canvas>
 
@@ -1173,6 +1284,17 @@
         <i class="fas fa-eye"></i>
         <span>Visitors: </span>
         <span id="visitorCount">0</span>
+    </div>
+
+    <div class="hacker-terminal" id="hackerTerminal">
+        <div id="terminalOutput"></div>
+        <input type="text" class="command-input" id="commandInput" placeholder="Enter command...">
+    </div>
+
+    <div class="floating-icons">
+        <div class="hack-icon" onclick="toggleTerminal()">⌨️</div>
+        <div class="hack-icon" onclick="initHack()">🔓</div>
+        <div class="hack-icon" onclick="toggleMatrix()">👾</div>
     </div>
 
     <script>
@@ -1316,31 +1438,6 @@
         }
 
         setInterval(addRandomGlitch, 3000);
-
-        // Add audio effects
-        const audioContext = new (window.AudioContext || window.webkitAudioContext)();
-
-        function playHackingSound() {
-            const oscillator = audioContext.createOscillator();
-            const gainNode = audioContext.createGain();
-            
-            oscillator.connect(gainNode);
-            gainNode.connect(audioContext.destination);
-            
-            oscillator.type = 'square';
-            oscillator.frequency.setValueAtTime(Math.random() * 1000 + 500, audioContext.currentTime);
-            gainNode.gain.setValueAtTime(0.1, audioContext.currentTime);
-            
-            oscillator.start();
-            oscillator.stop(audioContext.currentTime + 0.1);
-        }
-
-        // Play hacking sounds randomly
-        setInterval(() => {
-            if (Math.random() > 0.7) {
-                playHackingSound();
-            }
-        }, 1000);
 
         // Add mouse trail effect
         const mouseTrail = document.createElement('div');
@@ -1529,9 +1626,222 @@
             // Display the count
             document.getElementById('visitorCount').textContent = count;
         });
+
+        // Voice functionality
+        class HackerVoice {
+            constructor() {
+                this.synth = window.speechSynthesis;
+                this.isActive = false;
+                this.voice = null;
+                this.pitch = 1;
+                this.rate = 1;
+                this.volume = 0.8;
+                this.initVoice();
+            }
+
+            async initVoice() {
+                // Wait for voices to be loaded
+                await new Promise(resolve => {
+                    if (this.synth.getVoices().length) {
+                        resolve();
+                    } else {
+                        this.synth.addEventListener('voiceschanged', resolve);
+                    }
+                });
+
+                // Select a robotic-sounding voice if available
+                const voices = this.synth.getVoices();
+                this.voice = voices.find(voice => voice.name.includes('Google')) || voices[0];
+            }
+
+            speak(text) {
+                if (!this.isActive) return;
+
+                // Cancel any ongoing speech
+                this.synth.cancel();
+
+                const utterance = new SpeechSynthesisUtterance(text);
+                utterance.voice = this.voice;
+                utterance.pitch = this.pitch;
+                utterance.rate = this.rate;
+                utterance.volume = this.volume;
+
+                // Add some electronic distortion effect to the voice
+                utterance.onboundary = (event) => {
+                    if (event.name === 'word') {
+                        this.pitch = 0.8 + Math.random() * 0.4;
+                        this.rate = 0.9 + Math.random() * 0.2;
+                    }
+                };
+
+                this.synth.speak(utterance);
+            }
+
+            toggle() {
+                this.isActive = !this.isActive;
+                document.getElementById('voiceButton').classList.toggle('speaking', this.isActive);
+                
+                if (this.isActive) {
+                    this.speak("Voice interface activated. System ready.");
+                } else {
+                    this.synth.cancel();
+                }
+            }
+        }
+
+        // Initialize voice system
+        const hackerVoice = new HackerVoice();
+
+        // Voice button click handler
+        document.getElementById('voiceButton').addEventListener('click', () => {
+            hackerVoice.toggle();
+        });
+
+        // Add voice to interactive elements
+        document.addEventListener('mouseover', (e) => {
+            if (!hackerVoice.isActive) return;
+
+            const target = e.target;
+            if (target.tagName === 'A' || target.tagName === 'BUTTON') {
+                target.classList.add('voice-active');
+                hackerVoice.speak(target.textContent);
+            }
+        });
+
+        document.addEventListener('mouseout', (e) => {
+            const target = e.target;
+            if (target.tagName === 'A' || target.tagName === 'BUTTON') {
+                target.classList.remove('voice-active');
+            }
+        });
+
+        // Add voice to terminal messages
+        const originalTypeMessage = typeMessage;
+        typeMessage = async function(message) {
+            await originalTypeMessage(message);
+            hackerVoice.speak(message);
+        };
+
+        // Add voice to random hacking sounds
+        function playHackerPhrase() {
+            const phrases = [
+                "Accessing mainframe",
+                "Bypassing firewall",
+                "Decrypting data",
+                "System breach detected",
+                "Initializing security protocols",
+                "Download in progress",
+                "Connection established"
+            ];
+            
+            if (hackerVoice.isActive && Math.random() > 0.7) {
+                const phrase = phrases[Math.floor(Math.random() * phrases.length)];
+                hackerVoice.speak(phrase);
+            }
+        }
+
+        setInterval(playHackerPhrase, 5000);
+
+        // Terminal functionality
+        function toggleTerminal() {
+            const terminal = document.getElementById('hackerTerminal');
+            terminal.style.display = terminal.style.display === 'none' ? 'block' : 'none';
+            if (terminal.style.display === 'block') {
+                document.getElementById('commandInput').focus();
+            }
+        }
+
+        // Command input handling
+        document.getElementById('commandInput').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                const command = this.value.toLowerCase();
+                const output = document.getElementById('terminalOutput');
+                
+                // Add command to output
+                output.innerHTML += `<div>> ${command}</div>`;
+                
+                // Process commands
+                switch(command) {
+                    case 'help':
+                        output.innerHTML += `
+                            <div>Available commands:</div>
+                            <div>- help: Show this help</div>
+                            <div>- hack: Initialize hack sequence</div>
+                            <div>- clear: Clear terminal</div>
+                            <div>- matrix: Toggle matrix effect</div>
+                        `;
+                        break;
+                    case 'hack':
+                        initHack();
+                        break;
+                    case 'clear':
+                        output.innerHTML = '';
+                        break;
+                    case 'matrix':
+                        toggleMatrix();
+                        break;
+                    default:
+                        output.innerHTML += `<div>Command not recognized. Type 'help' for available commands.</div>`;
+                }
+                
+                this.value = '';
+                output.scrollTop = output.scrollHeight;
+            }
+        });
+
+        // Initialize hack sequence
+        function initHack() {
+            const glitchText = document.querySelector('.glitch-text');
+            glitchText.style.display = 'block';
+            setTimeout(() => {
+                glitchText.style.display = 'none';
+            }, 2000);
+            
+            // Add your existing hack initialization code here
+        }
+
+        // Toggle matrix rain effect
+        function toggleMatrix() {
+            const canvas = document.getElementById('matrix');
+            canvas.style.opacity = canvas.style.opacity === '0' ? '1' : '0';
+        }
+
+        // Binary stream effect
+        function createBinaryStream() {
+            const stream = document.querySelector('.binary-stream');
+            setInterval(() => {
+                const binary = Math.random().toString(2).substr(2, 8);
+                const span = document.createElement('span');
+                span.textContent = binary;
+                span.style.position = 'absolute';
+                span.style.left = Math.random() * 100 + '%';
+                span.style.top = '-20px';
+                span.style.color = '#00ff00';
+                span.style.fontSize = '12px';
+                span.style.opacity = '0.8';
+                stream.appendChild(span);
+
+                const animation = span.animate([
+                    { transform: 'translateY(0)', opacity: 0.8 },
+                    { transform: 'translateY(100vh)', opacity: 0 }
+                ], {
+                    duration: 2000,
+                    easing: 'linear'
+                });
+
+                animation.onfinish = () => span.remove();
+            }, 100);
+        }
+
+        // Initialize effects
+        createBinaryStream();
     </script>
 
     <!-- Add scanlines overlay -->
     <div class="scanlines"></div>
 </body>
 </html>
+<!-- Footer -->
+<footer>
+    &copy; 2023 PTJ Hacker Company. All rights reserved. | Designed by SAYEM X ZBP
+</footer>

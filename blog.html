@@ -1,0 +1,948 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hacker Blog - SAYEM X ZRP/title>
+    <style>
+        /* Inherit your existing styles */
+        /* Add blog-specific styles */
+        .blog-container {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 0 20px;
+        }
+
+        .blog-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .blog-card {
+            background: rgba(0, 20, 0, 0.9);
+            border: 1px solid #00ff00;
+            border-radius: 8px;
+            overflow: hidden;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            position: relative;
+        }
+
+        .blog-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 0 20px rgba(0, 255, 0, 0.3);
+        }
+
+        .blog-image {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            border-bottom: 1px solid #00ff00;
+            transition: transform 0.3s ease;
+        }
+
+        .blog-card:hover .blog-image {
+            transform: scale(1.05);
+        }
+
+        .blog-content {
+            padding: 1.5rem;
+        }
+
+        .blog-date {
+            color: #00ff00;
+            font-size: 0.9em;
+            margin-bottom: 0.5rem;
+        }
+
+        .blog-title {
+            color: #00ffff;
+            font-size: 1.5em;
+            margin-bottom: 1rem;
+            font-family: 'Courier New', monospace;
+        }
+
+        .blog-excerpt {
+            color: #b3ffff;
+            margin-bottom: 1.5rem;
+            line-height: 1.6;
+        }
+
+        .read-more {
+            display: inline-block;
+            padding: 0.5rem 1rem;
+            background: transparent;
+            border: 1px solid #00ff00;
+            color: #00ff00;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .read-more:hover {
+            background: #00ff00;
+            color: #000;
+        }
+
+        .blog-tag {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            padding: 0.3rem 0.8rem;
+            background: rgba(0, 255, 0, 0.2);
+            border: 1px solid #00ff00;
+            color: #00ff00;
+            border-radius: 15px;
+            font-size: 0.8em;
+        }
+
+        /* Search and Filter */
+        .blog-controls {
+            margin-bottom: 2rem;
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .search-box {
+            flex: 1;
+            min-width: 200px;
+            padding: 0.8rem;
+            background: rgba(0, 20, 0, 0.9);
+            border: 1px solid #00ff00;
+            color: #00ff00;
+            font-family: 'Courier New', monospace;
+        }
+
+        .filter-button {
+            padding: 0.8rem 1.5rem;
+            background: transparent;
+            border: 1px solid #00ff00;
+            color: #00ff00;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .filter-button:hover,
+        .filter-button.active {
+            background: #00ff00;
+            color: #000;
+        }
+
+        /* Hacking Background Styles */
+        .hacking-background {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            background-color: #000;
+            overflow: hidden;
+        }
+
+        #matrixCanvas {
+            position: absolute;
+            top: 0;
+            left: 0;
+            opacity: 0.8;
+        }
+
+        .code-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: repeating-linear-gradient(
+                180deg,
+                rgba(0, 255, 0, 0.1) 0px,
+                rgba(0, 255, 0, 0.1) 1px,
+                transparent 1px,
+                transparent 2px
+            );
+            pointer-events: none;
+        }
+
+        .glitch-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(
+                45deg,
+                rgba(0, 255, 0, 0.1) 25%,
+                transparent 25%,
+                transparent 50%,
+                rgba(0, 255, 0, 0.1) 50%,
+                rgba(0, 255, 0, 0.1) 75%,
+                transparent 75%
+            );
+            background-size: 4px 4px;
+            animation: glitch 0.2s infinite;
+            opacity: 0.1;
+        }
+
+        @keyframes glitch {
+            0% { transform: translateX(0); }
+            25% { transform: translateX(2px); }
+            50% { transform: translateX(-2px); }
+            75% { transform: translateX(1px); }
+            100% { transform: translateX(0); }
+        }
+
+        /* Binary Rain Effect */
+        .binary-rain {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+        }
+
+        .binary {
+            position: absolute;
+            color: #0f0;
+            font-family: monospace;
+            font-size: 14px;
+            user-select: none;
+            pointer-events: none;
+            white-space: nowrap;
+            animation: rain linear infinite;
+        }
+
+        @keyframes rain {
+            0% {
+                transform: translateY(-100%);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(100vh);
+                opacity: 0;
+            }
+        }
+
+        /* Update blog container for better visibility */
+        .blog-container {
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(5px);
+            border-radius: 15px;
+            padding: 20px;
+            margin-top: 2rem;
+        }
+
+        .blog-card {
+            background: rgba(0, 20, 0, 0.9);
+            border: 1px solid #0f0;
+            box-shadow: 0 0 15px rgba(0, 255, 0, 0.2);
+        }
+
+        /* Featured Post */
+        .featured-post {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            margin-bottom: 3rem;
+            background: rgba(0, 20, 0, 0.95);
+            border: 2px solid #00ff00;
+            border-radius: 15px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .featured-content {
+            padding: 2rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .featured-image {
+            height: 400px;
+            background-size: cover;
+            background-position: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .featured-image::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, rgba(0,255,0,0.2), transparent);
+        }
+
+        .featured-tag {
+            background: #ff3300;
+            color: #fff;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            display: inline-block;
+            margin-bottom: 1rem;
+        }
+
+        .featured-meta {
+            display: flex;
+            gap: 1.5rem;
+            margin-top: 1rem;
+            color: #00ff00;
+            font-size: 0.9em;
+        }
+
+        /* Enhanced Blog Cards */
+        .blog-card {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .blog-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, rgba(0,255,0,0.1), transparent);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .blog-card:hover::before {
+            opacity: 1;
+        }
+
+        /* Interactive Elements */
+        .blog-interaction {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1rem;
+            padding-top: 1rem;
+            border-top: 1px solid rgba(0,255,0,0.2);
+        }
+
+        .interaction-btn {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: #00ff00;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .interaction-btn:hover {
+            color: #fff;
+            transform: scale(1.1);
+        }
+
+        /* Category Pills */
+        .category-pills {
+            display: flex;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+            margin: 1rem 0;
+        }
+
+        /* Dark Mode Toggle */
+        .theme-toggle {
+            position: fixed;
+            right: 20px;
+            bottom: 20px;
+            z-index: 1000;
+            background: rgba(0, 20, 0, 0.9);
+            border: 1px solid #00ff00;
+            padding: 10px;
+            border-radius: 50%;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .theme-toggle:hover {
+            transform: rotate(180deg);
+            box-shadow: 0 0 20px rgba(0, 255, 0, 0.5);
+        }
+
+        /* Progress Bar */
+        .reading-progress {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: rgba(0, 255, 0, 0.2);
+            z-index: 1000;
+        }
+
+        .progress-bar {
+            height: 100%;
+            background: #00ff00;
+            width: 0%;
+            transition: width 0.3s ease;
+        }
+
+        /* Floating Action Menu */
+        .floating-menu {
+            position: fixed;
+            right: 30px;
+            top: 50%;
+            transform: translateY(-50%);
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            z-index: 100;
+        }
+
+        .float-btn {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: rgba(0, 20, 0, 0.9);
+            border: 1px solid #00ff00;
+            color: #00ff00;
+            display: grid;
+            place-items: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .float-btn:hover {
+            transform: scale(1.1);
+            box-shadow: 0 0 15px rgba(0, 255, 0, 0.5);
+        }
+
+        /* Advanced Search */
+        .advanced-search {
+            position: relative;
+        }
+
+        .search-suggestions {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            width: 100%;
+            background: rgba(0, 20, 0, 0.95);
+            border: 1px solid #00ff00;
+            border-top: none;
+            max-height: 200px;
+            overflow-y: auto;
+            display: none;
+        }
+
+        .suggestion-item {
+            padding: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .suggestion-item:hover {
+            background: rgba(0, 255, 0, 0.2);
+        }
+
+        /* Newsletter Popup */
+        .newsletter-popup {
+            position: fixed;
+            bottom: -100%;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(0, 20, 0, 0.95);
+            border: 2px solid #00ff00;
+            padding: 20px;
+            border-radius: 10px;
+            z-index: 1000;
+            transition: bottom 0.5s ease;
+            width: 90%;
+            max-width: 400px;
+        }
+
+        .newsletter-popup.show {
+            bottom: 20px;
+        }
+
+        /* Code Snippet Style */
+        .code-block {
+            background: rgba(0, 0, 0, 0.8);
+            border: 1px solid #00ff00;
+            border-radius: 5px;
+            padding: 10px;
+            margin-bottom: 10px;
+        }
+
+        /* Trending Topics */
+        .trending-topics {
+            margin: 2rem 0;
+            padding: 1rem;
+            background: rgba(0, 20, 0, 0.8);
+            border: 1px solid #00ff00;
+            border-radius: 10px;
+        }
+
+        .topic-chips {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+            margin-top: 1rem;
+        }
+
+        .topic-chip {
+            padding: 0.5rem 1rem;
+            background: rgba(0, 255, 0, 0.1);
+            border: 1px solid #00ff00;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .topic-chip:hover {
+            background: #00ff00;
+            color: #000;
+            transform: scale(1.05);
+        }
+
+        /* Newsletter Styles */
+        .newsletter-input {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            background: rgba(0, 0, 0, 0.8);
+            border: 1px solid #00ff00;
+            color: #00ff00;
+        }
+
+        .newsletter-btn {
+            width: 100%;
+            padding: 10px;
+            background: #00ff00;
+            color: #000;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .newsletter-btn:hover {
+            background: #00cc00;
+            transform: scale(1.02);
+        }
+
+        /* Loading Animation */
+        .loading-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.9);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 2000;
+        }
+
+        .loading-text {
+            color: #00ff00;
+            font-family: 'Courier New', monospace;
+            font-size: 1.5em;
+            position: relative;
+        }
+
+        .loading-text::after {
+            content: '';
+            animation: loading 1s infinite;
+        }
+
+        @keyframes loading {
+            0% { content: ''; }
+            25% { content: '.'; }
+            50% { content: '..'; }
+            75% { content: '...'; }
+        }
+
+        /* Image loading animation */
+        .blog-image {
+            position: relative;
+            background: linear-gradient(
+                45deg,
+                rgba(0, 24, 0, 0.1) 25%,
+                rgba(0, 255, 0, 0.1) 50%,
+                rgba(0, 24, 0, 0.1) 75%
+            );
+            background-size: 200% 200%;
+            animation: shimmer 1.5s infinite;
+        }
+
+        @keyframes shimmer {
+            0% { background-position: -200% 0; }
+            100% { background-position: 200% 0; }
+        }
+
+        /* Fallback image styles */
+        .blog-image[src$="CYBER+SECURITY"],
+        .blog-image[src$="HACKING+TOOLS"],
+        .blog-image[src$="NETWORK+SECURITY"] {
+            font-family: 'Courier New', monospace;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #00ff00;
+            text-align: center;
+            padding: 20px;
+            background: #001800;
+        }
+    </style>
+</head>
+<body>
+    <!-- Include your existing header -->
+    <header>
+        <nav>
+            <a href="index.html">Home</a>
+            <a href="about.html">About</a>
+            <a href="services.html">Services</a>
+            <a href="blog.html" class="active">Blog</a>
+            <a href="contact.html">Contact</a>
+        </nav>
+    </header>
+
+    <main class="blog-container">
+        <h1 class="glitch-text">Hacker's Blog</h1>
+        
+        <div class="blog-controls">
+            <input type="text" class="search-box" placeholder="Search articles...">
+            <button class="filter-button active">All</button>
+            <button class="filter-button">Security</button>
+            <button class="filter-button">Tutorials</button>
+            <button class="filter-button">News</button>
+        </div>
+
+        <!-- Add these new elements after the blog controls -->
+        <div class="featured-post">
+            <div class="featured-content">
+                <span class="featured-tag">Featured</span>
+                <h2>Advanced Penetration Testing Techniques</h2>
+                <p>Discover the latest methods and tools used in professional penetration testing...</p>
+                <div class="featured-meta">
+                    <span class="author">By SAYEM X ZRP</span>
+                    <span class="views">👁️ 1.2k Views</span>
+                    <span class="comments">💭 45 Comments</span>
+                </div>
+            </div>
+            <div class="featured-image" style="background-image: url('https://via.placeholder.com/800x400')"></div>
+        </div>
+
+        <!-- Add these elements after the featured post -->
+        <div class="trending-topics">
+            <h3 class="section-title">Trending Topics</h3>
+            <div class="topic-chips">
+                <span class="topic-chip">#RansomwareAttacks</span>
+                <span class="topic-chip">#AIHacking</span>
+                <span class="topic-chip">#CyberSecurity2024</span>
+                <span class="topic-chip">#EthicalHacking</span>
+                <span class="topic-chip">#ZeroDay</span>
+            </div>
+        </div>
+
+        <div class="blog-grid">
+            <!-- Blog Post 1 -->
+            <article class="blog-card">
+                <span class="reading-time">⏱️ 5 min read</span>
+                <img src="https://raw.githubusercontent.com/sayemx/blog-images/main/cyber1.jpg" 
+                     alt="Cybersecurity" 
+                     class="blog-image"
+                     onerror="this.src='https://via.placeholder.com/400x200/001800/00ff00?text=CYBER+SECURITY'">
+                <span class="blog-tag">Security</span>
+                <div class="blog-content">
+                    <div class="blog-date">March 15, 2024</div>
+                    <h2 class="blog-title">Advanced Penetration Testing</h2>
+                    <p class="blog-excerpt">Learn the latest techniques in penetration testing...</p>
+                    <a href="#" class="read-more">Read More ></a>
+                </div>
+            </article>
+
+            <!-- Blog Post 2 -->
+            <article class="blog-card">
+                <span class="reading-time">⏱️ 7 min read</span>
+                <img src="https://raw.githubusercontent.com/sayemx/blog-images/main/cyber2.jpg" 
+                     alt="Hacking Tools" 
+                     class="blog-image"
+                     onerror="this.src='https://via.placeholder.com/400x200/001800/00ff00?text=HACKING+TOOLS'">
+                <span class="blog-tag">Tools</span>
+                <div class="blog-content">
+                    <div class="blog-date">March 14, 2024</div>
+                    <h2 class="blog-title">Essential Hacking Tools 2024</h2>
+                    <p class="blog-excerpt">Top tools every ethical hacker needs...</p>
+                    <a href="#" class="read-more">Read More ></a>
+                </div>
+            </article>
+
+            <!-- Blog Post 3 -->
+            <article class="blog-card">
+                <span class="reading-time">⏱️ 4 min read</span>
+                <img src="https://raw.githubusercontent.com/sayemx/blog-images/main/cyber3.jpg" 
+                     alt="Network Security" 
+                     class="blog-image"
+                     onerror="this.src='https://via.placeholder.com/400x200/001800/00ff00?text=NETWORK+SECURITY'">
+                <span class="blog-tag">Network</span>
+                <div class="blog-content">
+                    <div class="blog-date">March 13, 2024</div>
+                    <h2 class="blog-title">Network Security Fundamentals</h2>
+                    <p class="blog-excerpt">Master the basics of network security...</p>
+                    <a href="#" class="read-more">Read More ></a>
+                </div>
+            </article>
+        </div>
+    </main>
+
+    <!-- Add these elements after the <body> tag -->
+    <div class="hacking-background">
+        <canvas id="matrixCanvas"></canvas>
+        <div class="code-overlay"></div>
+        <div class="glitch-overlay"></div>
+        <div class="binary-rain"></div>
+    </div>
+
+    <!-- Add floating action menu before closing body -->
+    <div class="floating-menu">
+        <button class="float-btn" onclick="toggleDarkMode()">🌓</button>
+        <button class="float-btn" onclick="scrollToTop()">⬆️</button>
+        <button class="float-btn" onclick="toggleNewsletter()">📫</button>
+        <button class="float-btn" onclick="shareContent()">📤</button>
+    </div>
+
+    <!-- Add newsletter popup -->
+    <div class="newsletter-popup" id="newsletterPopup">
+        <h3>Join Our Hacker Community</h3>
+        <p>Get the latest security updates and hacking tutorials</p>
+        <div class="newsletter-form">
+            <input type="email" placeholder="Enter your email" class="newsletter-input">
+            <button class="newsletter-btn">Subscribe</button>
+        </div>
+    </div>
+
+    <script>
+        // Search functionality
+        const searchBox = document.querySelector('.search-box');
+        const blogCards = document.querySelectorAll('.blog-card');
+
+        searchBox.addEventListener('input', (e) => {
+            const searchTerm = e.target.value.toLowerCase();
+            
+            blogCards.forEach(card => {
+                const title = card.querySelector('.blog-title').textContent.toLowerCase();
+                const excerpt = card.querySelector('.blog-excerpt').textContent.toLowerCase();
+                
+                if (title.includes(searchTerm) || excerpt.includes(searchTerm)) {
+                    card.style.display = 'block';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        });
+
+        // Filter functionality
+        const filterButtons = document.querySelectorAll('.filter-button');
+
+        filterButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                // Remove active class from all buttons
+                filterButtons.forEach(btn => btn.classList.remove('active'));
+                // Add active class to clicked button
+                button.classList.add('active');
+
+                const filter = button.textContent.toLowerCase();
+                
+                blogCards.forEach(card => {
+                    const tag = card.querySelector('.blog-tag').textContent.toLowerCase();
+                    
+                    if (filter === 'all' || tag === filter) {
+                        card.style.display = 'block';
+                    } else {
+                        card.style.display = 'none';
+                    }
+                });
+            });
+        });
+
+        // Matrix Rain Effect
+        const canvas = document.getElementById('matrixCanvas');
+        const ctx = canvas.getContext('2d');
+
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+
+        const chars = '01アイウエオカキクケコサシスセソタチツテトナニヌネノハヒフヘホマミムメモヤユヨラリルレロワヲン';
+        const fontSize = 14;
+        const columns = canvas.width / fontSize;
+        const drops = Array(Math.floor(columns)).fill(1);
+
+        function drawMatrix() {
+            ctx.fillStyle = 'rgba(0, 0, 0, 0.05)';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+            ctx.fillStyle = '#0F0';
+            ctx.font = fontSize + 'px monospace';
+
+            for (let i = 0; i < drops.length; i++) {
+                const text = chars[Math.floor(Math.random() * chars.length)];
+                ctx.fillText(text, i * fontSize, drops[i] * fontSize);
+
+                if (drops[i] * fontSize > canvas.height && Math.random() > 0.975) {
+                    drops[i] = 0;
+                }
+                drops[i]++;
+            }
+        }
+
+        // Binary Rain Effect
+        function createBinary() {
+            const binary = document.createElement('div');
+            binary.className = 'binary';
+            binary.style.left = Math.random() * 100 + '%';
+            binary.style.animationDuration = Math.random() * 2 + 3 + 's';
+            binary.textContent = Math.random().toString(2).substr(2, 8);
+            
+            document.querySelector('.binary-rain').appendChild(binary);
+            
+            setTimeout(() => {
+                binary.remove();
+            }, 5000);
+        }
+
+        // Glitch Effect
+        function createGlitch() {
+            const glitch = document.createElement('div');
+            glitch.className = 'glitch-line';
+            glitch.style.top = Math.random() * 100 + '%';
+            document.querySelector('.glitch-overlay').appendChild(glitch);
+            
+            setTimeout(() => {
+                glitch.remove();
+            }, 200);
+        }
+
+        // Initialize animations
+        setInterval(drawMatrix, 33);
+        setInterval(createBinary, 100);
+        setInterval(createGlitch, 500);
+
+        // Resize handler
+        window.addEventListener('resize', () => {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        });
+
+        // Add random hacking text
+        function addHackingText() {
+            const hackingPhrases = [
+                'ACCESS GRANTED',
+                'SYSTEM BREACH',
+                'DOWNLOADING DATA',
+                'ENCRYPTION BROKEN',
+                'FIREWALL DISABLED'
+            ];
+            
+            const text = document.createElement('div');
+            text.className = 'hacking-text';
+            text.textContent = hackingPhrases[Math.floor(Math.random() * hackingPhrases.length)];
+            text.style.left = Math.random() * 80 + 10 + '%';
+            text.style.top = Math.random() * 80 + 10 + '%';
+            
+            document.querySelector('.hacking-background').appendChild(text);
+            
+            setTimeout(() => {
+                text.remove();
+            }, 2000);
+        }
+
+        setInterval(addHackingText, 3000);
+
+        // Dark Mode Toggle
+        function toggleDarkMode() {
+            document.body.classList.toggle('dark-mode');
+            localStorage.setItem('darkMode', document.body.classList.contains('dark-mode'));
+        }
+
+        // Scroll to Top
+        function scrollToTop() {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        }
+
+        // Newsletter Toggle
+        function toggleNewsletter() {
+            const popup = document.getElementById('newsletterPopup');
+            popup.classList.toggle('show');
+        }
+
+        // Share Content
+        function shareContent() {
+            if (navigator.share) {
+                navigator.share({
+                    title: 'Hacker Blog',
+                    text: 'Check out this awesome hacker blog!',
+                    url: window.location.href
+                });
+            }
+        }
+
+        // Loading Animation
+        window.addEventListener('load', () => {
+            const loader = document.querySelector('.loading-overlay');
+            if (loader) {
+                setTimeout(() => {
+                    loader.style.opacity = '0';
+                    setTimeout(() => loader.remove(), 500);
+                }, 1500);
+            }
+        });
+
+        // Intersection Observer for lazy loading
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                    observer.unobserve(entry.target);
+                }
+            });
+        });
+
+        document.querySelectorAll('.blog-card').forEach(card => {
+            observer.observe(card);
+        });
+
+        // Image lazy loading
+        document.addEventListener('DOMContentLoaded', function() {
+            const images = document.querySelectorAll('.blog-image');
+            
+            const imageObserver = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const img = entry.target;
+                        if (img.dataset.src) {
+                            img.src = img.dataset.src;
+                            img.removeAttribute('data-src');
+                        }
+                        observer.unobserve(img);
+                    }
+                });
+            });
+
+            images.forEach(img => {
+                imageObserver.observe(img);
+            });
+        });
+
+        // Image error handling
+        function handleImageError(img) {
+            const title = img.alt.replace(/\s+/g, '+');
+            img.src = `https://via.placeholder.com/400x200/001800/00ff00?text=${title}`;
+        }
+
+        // Add error handlers to all images
+        document.querySelectorAll('.blog-image').forEach(img => {
+            img.addEventListener('error', () => handleImageError(img));
+        });
+    </script>
+</body>
+</html>

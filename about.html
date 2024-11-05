@@ -234,6 +234,71 @@
             0% { transform: translateY(0); }
             100% { transform: translateY(100vh); }
         }
+
+        /* Hacker Cat Styles */
+        .hacker-cat {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 1000;
+            background: rgba(0, 20, 0, 0.9);
+            padding: 15px;
+            border: 1px solid #00ff00;
+            border-radius: 8px;
+            font-family: 'Courier New', monospace;
+            color: #00ff00;
+            cursor: pointer;
+            animation: float 3s ease-in-out infinite;
+        }
+
+        .cat {
+            font-size: 24px;
+            text-align: center;
+            margin-bottom: 5px;
+            transition: transform 0.3s ease;
+        }
+
+        .hacker-cat:hover .cat {
+            transform: scale(1.1);
+        }
+
+        .typing-text {
+            font-size: 14px;
+            min-height: 20px;
+            white-space: nowrap;
+        }
+
+        @keyframes float {
+            0% {
+                transform: translateY(0px);
+            }
+            50% {
+                transform: translateY(-10px);
+            }
+            100% {
+                transform: translateY(0px);
+            }
+        }
+
+        /* Cat paw cursor */
+        body {
+            cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24'%3E%3Cpath fill='%2300ff00' d='M12 2C7.58 2 4 5.58 4 10c0 2.21.89 4.21 2.34 5.66L12 21.32l5.66-5.66C19.11 14.21 20 12.21 20 10c0-4.42-3.58-8-8-8zm0 14l-4.24-4.24C6.75 10.75 6 9.38 6 8c0-3.31 2.69-6 6-6s6 2.69 6 6c0 1.38-.75 2.75-1.76 3.76L12 16z'/%3E%3C/svg%3E"), auto;
+        }
+
+        /* Paw print trail effect */
+        .paw-print {
+            position: fixed;
+            pointer-events: none;
+            opacity: 0.5;
+            color: #00ff00;
+            font-size: 12px;
+            animation: fadePaw 1s forwards;
+        }
+
+        @keyframes fadePaw {
+            0% { opacity: 0.5; transform: scale(1); }
+            100% { opacity: 0; transform: scale(0.5); }
+        }
     </style>
 </head>
 <body>
@@ -279,17 +344,17 @@
                 <div class="content-section">
                     <h2>> Our Team_</h2>
                     <div class="team-member">
-                        <h3>John Doe</h3>
+                        <h3>ZONO ZANE</h3>
                         <p>Chief Security Officer</p>
                         <p>Specialization: Advanced Threat Detection</p>
                     </div>
                     <div class="team-member">
-                        <h3>Jane Smith</h3>
+                        <h3>SAYEM X ZRP</h3>
                         <p>Lead Penetration Tester</p>
                         <p>Specialization: Web Application Security</p>
                     </div>
                     <div class="team-member">
-                        <h3>Mike Johnson</h3>
+                        <h3>CODE X ZRP</h3>
                         <p>Security Analyst</p>
                         <p>Specialization: Malware Analysis</p>
                     </div>
@@ -336,6 +401,77 @@
         }
 
         setInterval(draw, 33);
+    </script>
+
+    <!-- Add this right after the <body> tag, before other content -->
+    <div class="hacker-cat">
+        <div class="cat">
+            =^..^=
+        </div>
+        <div class="typing-text"></div>
+    </div>
+
+    <script>
+        // Existing matrix rain code...
+
+        // Hacker Cat Functionality
+        const hackerCat = document.querySelector('.hacker-cat');
+        const typingText = document.querySelector('.typing-text');
+        const meowPhrases = [
+            "Meow! Scanning system...",
+            "Purr... Access granted!",
+            "Meow meow... Encrypting data...",
+            "=^..^= Hacking in progress...",
+            "Nyan~ Firewall breached!",
+            "Meow! Target acquired!",
+            "*licks paw* Debug complete!"
+        ];
+
+        hackerCat.addEventListener('click', () => {
+            const randomPhrase = meowPhrases[Math.floor(Math.random() * meowPhrases.length)];
+            typingText.textContent = '';
+            typeText(randomPhrase);
+            
+            // Add bounce animation
+            hackerCat.style.transform = 'scale(1.2)';
+            setTimeout(() => {
+                hackerCat.style.transform = 'scale(1)';
+            }, 200);
+        });
+
+        function typeText(text) {
+            let index = 0;
+            function type() {
+                if (index < text.length) {
+                    typingText.textContent += text.charAt(index);
+                    index++;
+                    setTimeout(type, 50);
+                }
+            }
+            type();
+        }
+
+        // Paw print trail effect
+        document.addEventListener('mousemove', (e) => {
+            if (Math.random() < 0.1) { // Reduce frequency of paw prints
+                const paw = document.createElement('div');
+                paw.className = 'paw-print';
+                paw.innerHTML = '🐾';
+                paw.style.left = e.clientX + 'px';
+                paw.style.top = e.clientY + 'px';
+                document.body.appendChild(paw);
+
+                // Remove paw print after animation
+                setTimeout(() => {
+                    paw.remove();
+                }, 1000);
+            }
+        });
+
+        // Initial meow message
+        setTimeout(() => {
+            typeText("Meow! System initialized...");
+        }, 1000);
     </script>
 </body>
 </html>

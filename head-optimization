@@ -1,0 +1,19 @@
+<!-- Add these meta tags to all HTML files -->
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <!-- Add preload for critical resources -->
+    <link rel="preload" href="styles.css" as="style">
+    <link rel="preload" href="matrix.js" as="script">
+    
+    <!-- Optimize font loading -->
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <style>
+        /* Inline critical CSS */
+        @font-face {
+            font-family: 'Courier New';
+            font-display: swap;
+        }
+    </style>
+</head> 
